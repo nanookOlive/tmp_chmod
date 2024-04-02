@@ -1,7 +1,6 @@
 package jade;
 
-import org.lwjgl.Version;
-import org.lwjgl.Version;
+
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
@@ -58,16 +57,14 @@ public class Window {
         glfwFreeCallbacks(glfwindow);
         glfwDestroyWindow(glfwindow );
 
-        gflwTerminate();
+        glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
 
-    private void gflwTerminate() {
-    }
+
 
     public void init(){
-        GLFWErrorCallback.createPrint(System.err).set();//System.err => stream
-
+        GLFWErrorCallback.createPrint(System.err).set();
         //initialise la librairie GLFW
         if(!glfwInit()){
             throw new IllegalStateException("Impossible de d'initialiser GLFW.");

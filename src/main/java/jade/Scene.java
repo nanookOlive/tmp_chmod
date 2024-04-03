@@ -8,7 +8,7 @@ public abstract  class Scene {
 
     protected  Camera camera;
     private boolean isRunning =false;
-    private List<GameObject> gameObjects = new ArrayList<>() ;
+    protected List<GameObject> gameObjects = new ArrayList<>() ;
     public Scene(){
 
 
@@ -22,6 +22,8 @@ public abstract  class Scene {
         for(GameObject go : gameObjects){
             go.start();
         }
+
+        isRunning = true;
     }
     public void addGameObjectToScene(GameObject go){
 

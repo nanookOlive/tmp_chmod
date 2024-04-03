@@ -54,11 +54,11 @@ public class LevelEditorScene extends Scene {
     @Override
     public void init() {
 
-        System.out.println("Creating test object");
-        this.testObj = new GameObject("test object");
-        this.testObj.addComponent(new SpriteRenderer());
-        this.testObj.addComponent(new FontRenderer());
-        this.addGameObjectToScene(this.testObj);
+//        System.out.println("Creating test object");
+//        this.testObj = new GameObject("test object");
+//        this.testObj.addComponent(new SpriteRenderer());
+//        this.testObj.addComponent(new FontRenderer());
+//        this.addGameObjectToScene(this.testObj);
 
 
         this.camera = new Camera(new Vector2f(-200, -300));

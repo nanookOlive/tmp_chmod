@@ -12,7 +12,7 @@ public class SpriteRenderer extends Component {
     }
     @Override
     public  void start(){
-        System.out.println("I'm starting !");
+
     }
 
     @Override

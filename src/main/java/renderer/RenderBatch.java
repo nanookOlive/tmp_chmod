@@ -107,14 +107,14 @@ public class RenderBatch {
 
             if(a == 1){
                 yAdd = 0.0f;
-            } else if( a ==2){
+            } else if( a == 2){
                 xAdd = 0.0f;
             }else if(a == 3){
                 yAdd = 1.0f;
             }
 
             vertices[offset] = sprite.gameObject.transform.position.x + (xAdd * sprite.gameObject.transform.scale.x);
-            vertices[offset + 1] = sprite.gameObject.transform.position.y + (xAdd * sprite.gameObject.transform.scale.y);
+            vertices[offset + 1] = sprite.gameObject.transform.position.y + (yAdd * sprite.gameObject.transform.scale.y);
 
             vertices[offset + 2] = color.x;
             vertices[offset + 3] = color.y;
@@ -151,6 +151,10 @@ public class RenderBatch {
 
 
 
+    }
+
+    public boolean hasRoom(){
+        return this.hasRoom;
     }
 
 }

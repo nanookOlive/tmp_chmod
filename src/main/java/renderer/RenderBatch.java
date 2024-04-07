@@ -40,7 +40,7 @@ public class RenderBatch {
 
     public RenderBatch(int maxBatchSize){
         shader = AssetPool.getShader("assets/shaders/default.glsl");
-        shader.compile();
+        //shader.compile();
         this.sprites = new SpriteRenderer[maxBatchSize];
         this.maxBatchSize=maxBatchSize;
 
@@ -105,7 +105,7 @@ public class RenderBatch {
         shader.uploadMat4f("uView",Window.getScene().camera().getViewMatrix());
 
         for(int a=0 ; a < textures.size(); a++){
-            glActiveTexture(GL_TEXTURE0+a);
+            glActiveTexture(GL_TEXTURE0+a+1);
             textures.get(a).bind();
         }
 
@@ -121,6 +121,10 @@ public class RenderBatch {
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
 
+        for(int a=0 ; a < textures.size(); a++){
+            textures.get(a).unbind();
+        }
+
         shader.detach();
     }
     private void loadVertexProperties(int index){
@@ -128,18 +132,20 @@ public class RenderBatch {
         SpriteRenderer sprite = this.sprites[index];
 
         int offset = index* 4 * VERTEX_SIZE;
+        Vector4f color = sprite.getColor();
+        Vector2f[] texCoords = sprite.getTexCoords();
+
         int texID = 0;
 
         if(sprite.getTexture() != null){
             for(int a=0;a<textures.size();a++){
                 if(textures.get(a) == sprite.getTexture()){
-                    texID =a;
+                    texID =a+1;
                     break;
                 }
             }
         }
-        Vector4f color = sprite.getColor();
-        Vector2f[] texCoords = sprite.getTexCoords();
+
 
         float xAdd = 1.0f;
         float yAdd = 1.0f;

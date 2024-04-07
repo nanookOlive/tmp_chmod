@@ -21,7 +21,7 @@ public class AssetPool {
 
             shader shader = new shader(resourceName);
             shader.compile();
-            AssetPool.shaders.put(resourceName,shader);
+            AssetPool.shaders.put(file.getAbsolutePath(),shader);
             return shader;
         }
     }

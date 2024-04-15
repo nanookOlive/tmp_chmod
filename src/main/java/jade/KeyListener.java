@@ -7,6 +7,7 @@ public class KeyListener {
     private static KeyListener instance ;
     private boolean keyPressed[]=new boolean[350];
 
+    //////////////////singleton
     private KeyListener(){}
 
     public static KeyListener get(){
@@ -18,6 +19,8 @@ public class KeyListener {
         return KeyListener.instance;
     }
 
+
+    //////////////////////////////la fonction de callback
     public static void keyCallback(long window, int key, int scancode, int action, int mods){
 
         if(action == GLFW_PRESS){ // si une touche est appuyée

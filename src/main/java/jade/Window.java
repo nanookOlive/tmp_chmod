@@ -66,6 +66,8 @@ public class Window {
 
 
     public void init(){
+
+        //gestion des erreurs
         GLFWErrorCallback.createPrint(System.err).set();
         //initialise la librairie GLFW
         if(!glfwInit()){
@@ -92,21 +94,25 @@ public class Window {
         glfwSetMouseButtonCallback(glfwindow,MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwindow,KeyListener::keyCallback);
+
+
         glfwMakeContextCurrent(glfwindow);
+        //intervalle au bout duquel les frammes buffers sont échangés
         glfwSwapInterval(1);
         glfwShowWindow(glfwindow);
 
         GL.createCapabilities();
 
+        //choix de la scène
         Window.changeScene(0);
 
 
     }
     public void loop(){
 
-        float beginTime = (float)glfwGetTime();
+        float beginTime = (float)glfwGetTime(); // renvoie un timer depuis initialisation de GLFW
         float endTime;
-        float dt =-1.0f;
+        float dt =1.0f;
         //tant que le flag window is closes est false
         while(!glfwWindowShouldClose(glfwindow)){
 
@@ -121,7 +127,7 @@ public class Window {
 
             }
 
-            glfwSwapBuffers(glfwindow); // ???????????
+            glfwSwapBuffers(glfwindow); // on permutte les buffers
 
             endTime = (float)glfwGetTime();
             dt = endTime - beginTime; // delta entre le début et la fin de la loop
@@ -131,7 +137,7 @@ public class Window {
 
         System.exit(0);
     }
-
+////fonction qui permet la créati)on d'un niveau de jeu qui sera affiché
     public static void changeScene(int newScene){
         switch(newScene){
             case 0:

@@ -17,27 +17,31 @@ public class shader {
     private int shaderProgramID;
     private String vertexSource;
     private String fragmentSource;
-    private String filepath;
+    private final String filepath;
     private boolean beingUsed = false;
 
     public shader(String filepath) {
 
         this.filepath = filepath;
 
+        //permet de récupèrer le code dans shader.glsl soit du vertex soit du fragment
         try {
 
-            String source = new String(Files.readAllBytes(Paths.get(filepath)));
-            String[] splitString = source.split("(#type)( )+([a-zA-Z]+)");
+            String source = new String(Files.readAllBytes(Paths.get(filepath)));//on récupère le contenu de shader.glsl
+            String[] splitString = source.split("(#type)( )+([a-zA-Z]+)");//on divise le contenu en deux selon le type
 
-            int index = source.indexOf("#type") + 6;
-            int eol = source.indexOf("\n", index);
 
-            String firstPattern = source.substring(index, eol).trim();
+            int index = source.indexOf("#type") + 6; // on veut l'index du mot après type
+            int eol = source.indexOf("\n", index); // fin de la ligne
+
+            String firstPattern = source.substring(index, eol).trim(); /// on récupère le mot après type dans le debut de chaine
 
 //            index = source.indexOf("#type",eol) +6;
 //            eol = source.indexOf("\n",index);
 
 
+
+            // assigne les contenus trouvés à vertex et fragment
             if (firstPattern.equals("vertex")) {
                 vertexSource = splitString[1];
                 fragmentSource = splitString[2];
@@ -62,18 +66,21 @@ public class shader {
 
 
     public void compile() {
+
+
         // ============================================================
         // Compile and link shaders
         // ============================================================
         int vertexID, fragmentID;
 
-        // First load and compile the vertex shader
+        //on crée un shader vide et on renvoie une valeur de référence
         vertexID = glCreateShader(GL_VERTEX_SHADER);
-        // Pass the shader source to the GPU
+        // on passe le shader  source au gpu
         glShaderSource(vertexID, vertexSource);
+        //on compile
         glCompileShader(vertexID);
 
-        // Check for errors in compilation
+        // on check els erreurs
         int success = glGetShaderi(vertexID, GL_COMPILE_STATUS);
         if (success == GL_FALSE) {
             int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
@@ -82,13 +89,13 @@ public class shader {
             assert false : "";
         }
 
-        // First load and compile the vertex shader
+        // on répète l'opération pour le fragment
         fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
         // Pass the shader source to the GPU
         glShaderSource(fragmentID, fragmentSource);
         glCompileShader(fragmentID);
 
-        // Check for errors in compilation
+        // on check les erreurs
         success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
         if (success == GL_FALSE) {
             int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
@@ -97,10 +104,13 @@ public class shader {
             assert false : "";
         }
 
-        // Link shaders and check for errors
+
+        // on crée un objet program vide et renvoie une valeur de référence
         shaderProgramID = glCreateProgram();
+        //on lie le vertex et le fragment au program
         glAttachShader(shaderProgramID, vertexID);
         glAttachShader(shaderProgramID, fragmentID);
+        //compile et crée un excecutable qui sera executer par le gpu
         glLinkProgram(shaderProgramID);
 
         // Check for linking errors
@@ -115,7 +125,7 @@ public class shader {
 
     public void use() {
         if (!beingUsed) {
-            // Bind shader program
+
             glUseProgram(shaderProgramID);
             beingUsed = true;
         }
@@ -126,8 +136,10 @@ public class shader {
         beingUsed = false;
     }
 
+
+    //ensemble de fonctions qui vont permettre le chargement de data dans le shader
     public void uploadMat4f(String varName, Matrix4f mat4) {
-        int varLocation = glGetUniformLocation(shaderProgramID, varName);
+        int varLocation = glGetUniformLocation(shaderProgramID, varName); // index de varname dans le shader.
         use();
         FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
         mat4.get(matBuffer);

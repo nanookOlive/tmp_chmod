@@ -10,15 +10,15 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
 
 public class Texture {
-    private String filepath;
-    private int texID;
+    private final String filepath;
+    private final int texID;
     private int width, height;
 
     public Texture(String filepath) {
         this.filepath = filepath;
 
-        // Generate texture on GPU
-        texID = glGenTextures();
+        //
+        texID = glGenTextures();//crée un nom de texture et alloue un espace et renvoie la réf
         glBindTexture(GL_TEXTURE_2D, texID);
 
         // Set texture parameters

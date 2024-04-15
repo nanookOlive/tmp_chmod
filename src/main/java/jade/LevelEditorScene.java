@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL20.GL_SHADING_LANGUAGE_VERSION;
 
 public class LevelEditorScene extends Scene {
 
+    private GameObject object1;
     public LevelEditorScene() {
 
     }
@@ -22,16 +23,16 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
 
-        this.camera = new Camera(new Vector2f());
+        this.camera = new Camera(new Vector2f(-250,0));
 
         SpriteSheet sprites= AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
-        GameObject object1 = new GameObject("Object1",new Transform(new Vector2f(100,100),new Vector2f(256,256)));
+        object1 = new GameObject("object1",new Transform(new Vector2f(100,100),new Vector2f(256,256)));
         object1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObjectToScene(object1);
 
-        GameObject object2 = new GameObject("Object2",new Transform(new Vector2f(400,100),new Vector2f(256,256)));
-        object2.addComponent(new SpriteRenderer(sprites.getSprite(15)));
+        GameObject object2 = new GameObject("object2",new Transform(new Vector2f(400,100),new Vector2f(256,256)));
+        object2.addComponent(new SpriteRenderer(sprites.getSprite(7)));
         this.addGameObjectToScene(object2);
 
     }
@@ -43,7 +44,9 @@ public class LevelEditorScene extends Scene {
     }
     @Override
     public void update(float dt) {
-//      
+//
+
+
 
         //System.out.println("FPS => "+(1.0f/dt));
         for(GameObject go : this.gameObjects){

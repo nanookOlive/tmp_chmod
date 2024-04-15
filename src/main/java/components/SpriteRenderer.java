@@ -29,6 +29,7 @@ public class SpriteRenderer extends Component {
     @Override
     public  void start(){
 
+        this.lastTransform = gameObject.transform.copy();
     }
 
     @Override

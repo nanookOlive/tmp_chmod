@@ -112,7 +112,7 @@ public class Window {
 
         float beginTime = (float)glfwGetTime(); // renvoie un timer depuis initialisation de GLFW
         float endTime;
-        float dt =1.0f;
+        float dt =-1.0f;
         //tant que le flag window is closes est false
         while(!glfwWindowShouldClose(glfwindow)){
 

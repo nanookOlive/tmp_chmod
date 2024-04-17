@@ -4,6 +4,7 @@ import components.SpriteRenderer;
 import jade.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -43,6 +44,7 @@ public class Renderer {
             newBatch.start();
             batches.add(newBatch);
             newBatch.addSprite(sprite);
+            Collections.sort(batches);
 
         }
     }

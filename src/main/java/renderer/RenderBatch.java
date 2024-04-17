@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch>{
 
     private final int POS_SIZE =2;
     private final int COLOR_SIZE=4;
@@ -37,7 +37,7 @@ public class RenderBatch {
     private int vaoID, vboID;
     private shader shader;
     private int maxBatchSize;
-    private int zIndex,;
+    private int zIndex;
 
     public RenderBatch(int maxBatchSize, int zIndex){
 
@@ -245,6 +245,10 @@ public class RenderBatch {
         return this.zIndex;
     }
 
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.zIndex,o.zIndex());
+    }
 }
 
 

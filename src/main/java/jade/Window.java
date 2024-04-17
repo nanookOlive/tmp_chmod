@@ -28,10 +28,10 @@ public class Window {
         this.width=1200;
         this.height=800;
         this.title = "Chmod";
-        r = 0;
-        g = 0;
-        b = 0;
-        a = 0;
+        r = 1;
+        g = 1;
+        b = 1;
+        a = 1;
     }
 
 
@@ -102,6 +102,10 @@ public class Window {
         glfwShowWindow(glfwindow);
 
         GL.createCapabilities();
+
+        //fonction pour permettre de blend
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
 
         //choix de la scène
         Window.changeScene(0);

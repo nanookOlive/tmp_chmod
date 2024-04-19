@@ -1,8 +1,11 @@
 package jade;
 
 
+import imgui.ImGui;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -18,7 +21,7 @@ public class Window {
     public float r,g,b,a;
     private static Scene currentScene ;
 
-
+    private ImGuiLayer imGuiLayer;
 
     //initialisation de l'objet Window
     //private car singleton
@@ -107,6 +110,8 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
 
+        this.imGuiLayer = new ImGuiLayer(this.glfwindow);
+        this.imGuiLayer.initImGui();
         //choix de la scène
         Window.changeScene(0);
 
@@ -130,7 +135,7 @@ public class Window {
                 currentScene.update(dt);
 
             }
-
+            this.imGuiLayer.update(dt);
             glfwSwapBuffers(glfwindow); // on permutte les buffers
 
             endTime = (float)glfwGetTime();
@@ -159,5 +164,13 @@ public class Window {
                 break;
         }
 
+    }
+
+    public static int getWidth(){
+        return get().width;
+    }
+
+    public static int getHeight(){
+        return get().height;
     }
 }

@@ -20,6 +20,7 @@ public class ImGuiLayer {
 
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     public ImGuiLayer(long glfwWindow){
+
         this.glfwWindow=glfwWindow;
     }
     public void initImGui() {

@@ -97,6 +97,11 @@ public class Window {
         glfwSetMouseButtonCallback(glfwindow,MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwindow,KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwindow,(w,newWidth,newHeight)->{
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+
+        });
 
 
         glfwMakeContextCurrent(glfwindow);
@@ -172,5 +177,12 @@ public class Window {
 
     public static int getHeight(){
         return get().height;
+    }
+
+    public static void setWidth(int newWidth){
+        get().width=newWidth;
+    }
+    public static void setHeight(int newHeight){
+        get().height=newHeight;
     }
 }
